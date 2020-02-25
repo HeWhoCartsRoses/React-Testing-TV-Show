@@ -5,6 +5,14 @@ import Episodes from "./Episodes";
 
 jest.mock('../api/fetchShow');
 test("renders dog images from API", async () => {
+    function check(dat) {
+        try {
+            console.log(dat.Function)
+            expect(dat).toBe('crying inside');
+            expect(dat).toBe('50');
+            done();
+        } catch (err) { return err }
+    }
     mockFetchShow.mockResolvedValueOnce({})
     const episode = [{
         runtime: '50',
@@ -13,8 +21,7 @@ test("renders dog images from API", async () => {
         season: 'last',
         episode: 'end me',
         summary: 'tear making the sheets wet at 1 in the morning',
-
-    }]
+    }];
     const { getByText } = render(<Episodes episodes={episode} />);
-    expect(getByText).toInclude('crying inside')
+    check(getByText)
 });
